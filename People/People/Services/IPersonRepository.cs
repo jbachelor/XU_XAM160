@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using People.Models;
 
 namespace People.Services
@@ -7,7 +8,7 @@ namespace People.Services
     {
         string StatusMessage { get; set; }
 
-        void AddNewPerson(string name);
-        List<Person> GetAllPeople();
+        Task AddNewPerson(string name);
+        Task<List<Person>> GetAllPeople();
     }
 }

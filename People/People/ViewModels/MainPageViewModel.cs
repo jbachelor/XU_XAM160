@@ -50,18 +50,18 @@ namespace People.ViewModels
             GetAllPeopleCommand = new DelegateCommand(OnGetAllPeopleTapped);
         }
 
-        private void OnGetAllPeopleTapped()
+        private async void OnGetAllPeopleTapped()
         {
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnGetAllPeopleTapped)}");
 
-            People = new ObservableCollection<Person>(_personRepository.GetAllPeople());
+            People = new ObservableCollection<Person>(await _personRepository.GetAllPeople());
         }
 
-        private void OnAddNewPersonTapped()
+        private async void OnAddNewPersonTapped()
         {
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnAddNewPersonTapped)}");
 
-            _personRepository.AddNewPerson(PersonNameText);
+            await _personRepository.AddNewPerson(PersonNameText);
             PersonNameText = string.Empty;
         }
     }
