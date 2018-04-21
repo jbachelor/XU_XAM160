@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using People.Helpers;
 using People.Models;
 using SQLite;
 
@@ -9,13 +10,16 @@ namespace People.Services
     public class PersonRepository : IPersonRepository
     {
         private SQLiteConnection _sqliteConnection;
+        private IFileAccessHelper _fileAccessHelper;
 
         public string StatusMessage { get; set; }
 
-        public PersonRepository(string dbPath)
+        public PersonRepository(IFileAccessHelper fileAccessHelper)
         {
+            _fileAccessHelper = fileAccessHelper;
             // TODO: Initialize a new SQLiteConnection
-            _sqliteConnection = new SQLiteConnection(dbPath);
+            _sqliteConnection = new SQLiteConnection(
+                _fileAccessHelper.GetSQLiteDatabasePath(AppConstants.DATABASE_FILE_NAME));
             // TODO: Create the Person table
             _sqliteConnection.CreateTable<Person>();
         }

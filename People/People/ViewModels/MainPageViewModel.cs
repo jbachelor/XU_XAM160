@@ -13,17 +13,8 @@ namespace People.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        IFileAccessHelper _fileAccessHelper;
-
         public DelegateCommand AddNewPersonCommand { get; set; }
         public DelegateCommand GetAllPeopleCommand { get; set; }
-
-        private string _databasePath;
-        public string DatabasePath
-        {
-            get { return _databasePath; }
-            set { SetProperty(ref _databasePath, value); }
-        }
 
         private string _personNameText;
         public string PersonNameText
@@ -46,18 +37,13 @@ namespace People.ViewModels
             set { SetProperty(ref _people, value); }
         }
 
-        public MainPageViewModel(INavigationService navigationService,
-                                IFileAccessHelper fileAccessHelper)
+        public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "People!";
-			_fileAccessHelper = fileAccessHelper;
 
             AddNewPersonCommand = new DelegateCommand(OnAddNewPersonTapped);
             GetAllPeopleCommand = new DelegateCommand(OnGetAllPeopleTapped);
-
-            DatabasePath = _fileAccessHelper.GetSQLiteDatabasePath(
-                AppConstants.DATABASE_FILE_NAME);
         }
 
         private void OnGetAllPeopleTapped()
