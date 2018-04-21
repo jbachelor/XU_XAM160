@@ -52,16 +52,12 @@ namespace People.ViewModels
 
         private async void OnGetAllPeopleTapped()
         {
-            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnGetAllPeopleTapped)}");
-
-            People = new ObservableCollection<Person>(await _personRepository.GetAllPeople());
+            People = new ObservableCollection<Person>(await _personRepository.GetAllPeopleAsync());
         }
 
         private async void OnAddNewPersonTapped()
         {
-            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnAddNewPersonTapped)}");
-
-            await _personRepository.AddNewPerson(PersonNameText);
+            await _personRepository.AddNewPersonAsync(PersonNameText);
             PersonNameText = string.Empty;
         }
     }

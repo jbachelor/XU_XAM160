@@ -8,7 +8,7 @@ namespace People.Services
     {
         string StatusMessage { get; set; }
 
-        Task AddNewPerson(string name);
-        Task<List<Person>> GetAllPeople();
+        Task AddNewPersonAsync(string name);
+        Task<List<Person>> GetAllPeopleAsync();
     }
 }

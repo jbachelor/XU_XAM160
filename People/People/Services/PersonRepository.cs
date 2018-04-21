@@ -33,7 +33,7 @@ namespace People.Services
             _sqliteConnection.CreateTableAsync<Person>().Wait();
         }
 
-        public async Task AddNewPerson(string name)
+        public async Task AddNewPersonAsync(string name)
         {
             int result = 0;
             try
@@ -51,13 +51,12 @@ namespace People.Services
             }
             finally
             {
-                Console.WriteLine($"**** {this.GetType().Name}.{nameof(AddNewPerson)}:  {StatusMessage}");
+                Console.WriteLine($"**** {this.GetType().Name}.{nameof(AddNewPersonAsync)}:  {StatusMessage}");
             }
         }
 
-        public async Task<List<Person>> GetAllPeople()
+        public async Task<List<Person>> GetAllPeopleAsync()
         {
-            // TODO: return a list of people saved to the Person table in the database
             List<Person> people = new List<Person>();
             try
             {
@@ -68,7 +67,7 @@ namespace People.Services
                 StatusMessage = $"Failed to retrieve people:  {ex.Message}";
             }
 
-            Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetAllPeople)}:  Returning {people.Count} people.");
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetAllPeopleAsync)}:  Returning {people.Count} people.");
             return people;
         }
     }

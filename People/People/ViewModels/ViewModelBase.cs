@@ -20,27 +20,28 @@ namespace People.ViewModels
 
         public ViewModelBase(INavigationService navigationService)
         {
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(ViewModelBase)}:  ctor");
             NavigationService = navigationService;
         }
 
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
-
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnNavigatedFrom)}");
         }
 
         public virtual void OnNavigatedTo(NavigationParameters parameters)
         {
-
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnNavigatedTo)}");
         }
 
         public virtual void OnNavigatingTo(NavigationParameters parameters)
         {
-
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnNavigatingTo)}");
         }
 
         public virtual void Destroy()
         {
-
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(Destroy)}");
         }
     }
 }
