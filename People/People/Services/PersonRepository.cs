@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using People.Models;
 using SQLite;
 
@@ -42,7 +43,16 @@ namespace People.Services
         public List<Person> GetAllPeople()
         {
             // TODO: return a list of people saved to the Person table in the database
-            return null;
+            List<Person> people = new List<Person>();
+            try
+            {
+                people = _sqliteConnection.Table<Person>().ToList();
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Failed to retrieve people:  {ex.Message}";
+            }
+            return people;
         }
     }
 }
