@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using People.Models;
+using SQLite;
 
 namespace People.Services
 {
     public class PersonRepository
     {
+        private SQLiteConnection _sqliteConnection;
+
         public string StatusMessage { get; set; }
 
         public PersonRepository(string dbPath)
         {
             // TODO: Initialize a new SQLiteConnection
+            _sqliteConnection = new SQLiteConnection(dbPath);
             // TODO: Create the Person table
+            _sqliteConnection.CreateTable<Person>();
         }
 
         public void AddNewPerson(string name)
@@ -24,12 +29,12 @@ namespace People.Services
                     throw new Exception("Name cannot be blank.");
 
                 // TODO: insert a new person into the Person table
-
-                StatusMessage = $"{result} record(s) added [Name: {name})");
+                result = _sqliteConnection.Insert(new Person { Name = name });
+                StatusMessage = $"{result} record(s) added [Name: {name}]";
             }
             catch (Exception ex)
             {
-                StatusMessage = $"Failed to add {name}. Error: {ex.Message}";
+                StatusMessage = $"Failed to add [{name}]. Error: {ex.Message}";
             }
 
         }
