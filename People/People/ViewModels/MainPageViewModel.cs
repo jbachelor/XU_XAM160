@@ -1,5 +1,6 @@
 ﻿using People.Helpers;
 using People.Models;
+using People.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -13,6 +14,8 @@ namespace People.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        private IPersonRepository _personRepository;
+
         public DelegateCommand AddNewPersonCommand { get; set; }
         public DelegateCommand GetAllPeopleCommand { get; set; }
 
@@ -37,9 +40,10 @@ namespace People.ViewModels
             set { SetProperty(ref _people, value); }
         }
 
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService, IPersonRepository personRepository)
             : base(navigationService)
         {
+            _personRepository = personRepository;
             Title = "People!";
 
             AddNewPersonCommand = new DelegateCommand(OnAddNewPersonTapped);
@@ -49,11 +53,16 @@ namespace People.ViewModels
         private void OnGetAllPeopleTapped()
         {
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnGetAllPeopleTapped)}");
+
+            People = new ObservableCollection<Person>(_personRepository.GetAllPeople());
         }
 
         private void OnAddNewPersonTapped()
         {
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnAddNewPersonTapped)}");
+
+            _personRepository.AddNewPerson(PersonNameText);
+            PersonNameText = string.Empty;
         }
     }
 }
