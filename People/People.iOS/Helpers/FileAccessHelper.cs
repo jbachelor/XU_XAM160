@@ -13,7 +13,7 @@ namespace People.iOS.Helpers
         {
             string personalFolderPath = Environment.GetFolderPath(
                 Environment.SpecialFolder.Personal);
-            string libraryFolder = Path.Combine(personalFolderPath, "..", "Library");
+            string libraryFolder = Path.Combine(personalFolderPath, "..", AppConstants.iOS_LIBRARY_NAME);
 
             if (!Directory.Exists(libraryFolder))
             {

@@ -26,7 +26,9 @@ namespace People.ViewModels
         {
             Title = "SQLite Intro";
 			_fileAccessHelper = fileAccessHelper;
-            DatabasePath = _fileAccessHelper.GetSQLiteDatabasePath("peopleDatabase.db3");
+
+            DatabasePath = _fileAccessHelper.GetSQLiteDatabasePath(
+                AppConstants.DATABASE_FILE_NAME);
         }
     }
 }
