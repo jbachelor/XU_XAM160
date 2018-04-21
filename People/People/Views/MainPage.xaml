@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="People.Views.MainPage"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <Label
+            Text="{Binding DatabasePath}" />
+    </ContentPage.Content>
+</ContentPage>
