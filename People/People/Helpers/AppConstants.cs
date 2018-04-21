@@ -5,5 +5,6 @@ namespace People.Helpers
     {
         public const string DATABASE_FILE_NAME = "peopleDatabase.db3";
         public const string iOS_LIBRARY_NAME = "Library";
+        public const string PEOPLE_TABLE_NAME = "people";
     }
 }
