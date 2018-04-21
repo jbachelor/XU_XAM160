@@ -41,6 +41,10 @@ namespace People.Services
             {
                 StatusMessage = $"Failed to add [{name}]. Error: {ex.Message}";
             }
+            finally
+            {
+                Console.WriteLine($"**** {this.GetType().Name}.{nameof(AddNewPerson)}:  {StatusMessage}");
+            }
         }
 
         public List<Person> GetAllPeople()
@@ -55,6 +59,8 @@ namespace People.Services
             {
                 StatusMessage = $"Failed to retrieve people:  {ex.Message}";
             }
+
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetAllPeople)}:  Returning {people.Count} people.");
             return people;
         }
     }
