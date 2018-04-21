@@ -6,7 +6,7 @@ using SQLite;
 
 namespace People.Services
 {
-    public class PersonRepository
+    public class PersonRepository : IPersonRepository
     {
         private SQLiteConnection _sqliteConnection;
 
@@ -37,7 +37,6 @@ namespace People.Services
             {
                 StatusMessage = $"Failed to add [{name}]. Error: {ex.Message}";
             }
-
         }
 
         public List<Person> GetAllPeople()

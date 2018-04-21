@@ -7,7 +7,66 @@
     ios:Page.UseSafeArea="true"
     Title="{Binding Title}">
     <ContentPage.Content>
-        <Label
-            Text="{Binding DatabasePath}" />
+        <Grid
+            Padding="5"
+            RowSpacing="1"
+            ColumnSpacing="1"
+            BackgroundColor="Default">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <Entry
+                x:Name="newPerson"
+                Grid.Row="0"
+                Grid.Column="0"
+                Placeholder="Enter name"
+                Text="{Binding PersonNameText}" />
+            <Button
+                Text="Add Person"
+                Grid.Row="1"
+                Grid.Column="0"
+                Command="{Binding AddNewPersonCommand}" />
+            <Label
+                x:Name="statusMessage"
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="{Binding StatusMessage}" />
+            <Button
+                Text="Get All People"
+                Grid.Row="3"
+                Grid.Column="0"
+                Command="{Binding GetAllPeopleCommand}" />
+            <ListView
+                x:Name="peopleList"
+                Grid.Row="4"
+                Grid.Column="0"
+                ItemsSource="{Binding People}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell
+                            Height="30">
+                            <StackLayout
+                                Padding="5">
+                                <Label
+                                    Text="{Binding Name}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

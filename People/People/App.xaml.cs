@@ -5,6 +5,7 @@ using People.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Prism.DryIoc;
+using People.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace People
@@ -29,8 +30,12 @@ namespace People
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Register UI pages for navigation:
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
+
+            // Register non-UI solution dependencies:
+            containerRegistry.RegisterSingleton<IPersonRepository, PersonRepository>();
         }
     }
 }
