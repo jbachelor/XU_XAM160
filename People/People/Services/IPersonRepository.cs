@@ -10,5 +10,6 @@ namespace People.Services
 
         Task AddNewPersonAsync(string name);
         Task<List<Person>> GetAllPeopleAsync();
+        Task<Person> GetPersonById(int personId);
     }
 }

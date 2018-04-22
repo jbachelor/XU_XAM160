@@ -70,5 +70,22 @@ namespace People.Services
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetAllPeopleAsync)}:  Returning {people.Count} people.");
             return people;
         }
+
+        public async Task<Person> GetPersonById(int personId)
+        {
+            Person personFetchedFromDatabase = null;
+            try
+            {
+                personFetchedFromDatabase = await _sqliteConnection.FindAsync<Person>(personId);
+                StatusMessage = $"Returning [{personFetchedFromDatabase}]";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Failed to retrieve person with id=[{personId}].  EXCEPTION:  {ex.Message}";
+            }
+
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetPersonById)}:  {StatusMessage}");
+            return personFetchedFromDatabase;
+        }
     }
 }
