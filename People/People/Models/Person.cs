@@ -12,5 +12,10 @@ namespace People.Models
 
         [MaxLength(250), Unique]
         public string Name { get; set; }
-    }
+
+		public override string ToString()
+		{
+            return $"Id={Id}, Name={Name}";
+		}
+	}
 }
