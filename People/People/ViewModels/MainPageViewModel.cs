@@ -18,6 +18,7 @@ namespace People.ViewModels
 
         public DelegateCommand AddNewPersonCommand { get; set; }
         public DelegateCommand GetAllPeopleCommand { get; set; }
+        public DelegateCommand<Person> PersonTappedCommand { get; set; }
 
         private string _personNameText;
         public string PersonNameText
@@ -48,6 +49,12 @@ namespace People.ViewModels
 
             AddNewPersonCommand = new DelegateCommand(OnAddNewPersonTapped);
             GetAllPeopleCommand = new DelegateCommand(OnGetAllPeopleTapped);
+            PersonTappedCommand = new DelegateCommand<Person>(OnPersonTapped);
+        }
+
+        private void OnPersonTapped(Person personTapped)
+        {
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnPersonTapped)}:  {personTapped}");
         }
 
         private async void OnGetAllPeopleTapped()

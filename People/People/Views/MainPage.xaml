@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     x:Class="People.Views.MainPage"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
@@ -66,6 +67,12 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <prismBehaviors:EventToCommandBehavior
+                        EventName="ItemTapped"
+                        Command="{Binding PersonTappedCommand}"
+                        EventArgsParameterPath="Item" />
+                </ListView.Behaviors>
             </ListView>
         </Grid>
     </ContentPage.Content>
