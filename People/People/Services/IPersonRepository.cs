@@ -8,8 +8,10 @@ namespace People.Services
     {
         string StatusMessage { get; set; }
 
-        Task AddNewPersonAsync(string name);
+        Task<int> AddNewPersonAsync(string name);
         Task<List<Person>> GetAllPeopleAsync();
         Task<Person> GetPersonById(int personId);
+        Task<Address> GetFirstAddressByPersonId(int personId);
+        Task<int> SaveAddressForPerson(Address newAddressForPerson);
     }
 }

@@ -33,6 +33,7 @@ namespace People
             // Register UI pages for navigation:
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<PersonAddressPage>();
 
             // Register non-UI solution dependencies:
             containerRegistry.RegisterSingleton<IPersonRepository, PersonRepository>();

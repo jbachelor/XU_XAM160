@@ -31,9 +31,10 @@ namespace People.Services
         private void CreateTablesSynchronously()
         {
             _sqliteConnection.CreateTableAsync<Person>().Wait();
+            _sqliteConnection.CreateTableAsync<Address>().Wait();
         }
 
-        public async Task AddNewPersonAsync(string name)
+        public async Task<int> AddNewPersonAsync(string name)
         {
             int result = 0;
             try
@@ -53,6 +54,42 @@ namespace People.Services
             {
                 Console.WriteLine($"**** {this.GetType().Name}.{nameof(AddNewPersonAsync)}:  {StatusMessage}");
             }
+            return result;
+        }
+
+        public async Task<int> SaveAddressForPerson(Address newAddressForPerson)
+        {
+            int addressId = 0;
+            try
+            {
+                if (newAddressForPerson.PersonId <= 0)
+                {
+                    throw new Exception("Person id must be assigned before saving an address.");
+                }
+
+                var existingAddress = await _sqliteConnection.Table<Address>()
+                                                             .Where(a => a.PersonId == newAddressForPerson.PersonId)
+                                                             .FirstOrDefaultAsync();
+
+                if (existingAddress == null)
+                {
+                    addressId = await _sqliteConnection.InsertAsync(newAddressForPerson);
+                }
+                else
+                {
+                    await _sqliteConnection.UpdateAsync(newAddressForPerson);
+                }
+
+                StatusMessage = $"Added or updated address for personId {newAddressForPerson.PersonId}:  {newAddressForPerson}";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Failed to save new address for personId {newAddressForPerson.PersonId}:  {ex.Message}";
+            }
+
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(SaveAddressForPerson)}:  {StatusMessage}");
+
+            return addressId;
         }
 
         public async Task<List<Person>> GetAllPeopleAsync()
@@ -86,6 +123,26 @@ namespace People.Services
 
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetPersonById)}:  {StatusMessage}");
             return personFetchedFromDatabase;
+        }
+
+        public async Task<Address> GetFirstAddressByPersonId(int personId)
+        {
+            Address addressForPerson = null;
+            try
+            {
+                addressForPerson = await
+                    _sqliteConnection.Table<Address>()
+                                     .Where(a => a.PersonId == personId).FirstOrDefaultAsync();
+                StatusMessage = $"Retrieved address for personId [{personId}]:  {addressForPerson}";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Failed to retrieve address for personId [{personId}]";
+            }
+
+            Console.WriteLine($"**** {this.GetType().Name}.{nameof(GetFirstAddressByPersonId)}:  {StatusMessage}");
+
+            return addressForPerson;
         }
     }
 }

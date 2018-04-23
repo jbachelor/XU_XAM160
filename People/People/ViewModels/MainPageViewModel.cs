@@ -1,6 +1,7 @@
 ﻿using People.Helpers;
 using People.Models;
 using People.Services;
+using People.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -55,6 +56,10 @@ namespace People.ViewModels
         private void OnPersonTapped(Person personTapped)
         {
             Console.WriteLine($"**** {this.GetType().Name}.{nameof(OnPersonTapped)}:  {personTapped}");
+
+            var navParams = new NavigationParameters();
+            navParams.Add(AppConstants.PERSON_NAV_KEY, personTapped);
+            NavigationService.NavigateAsync(nameof(PersonAddressPage), navParams, false, true);
         }
 
         private async void OnGetAllPeopleTapped()
